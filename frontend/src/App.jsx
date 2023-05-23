@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import PrivateRoute from '../components/PrivateRoute.jsx'
+import PrivateRoute from './components/PrivateRoute.jsx'
 
 const App = () => {
   const isAuthenticated = true
