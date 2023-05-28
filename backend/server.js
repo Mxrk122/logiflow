@@ -6,6 +6,19 @@ const app = express()
 const cors = require('cors')
 app.use(cors())
 
-app.get('/', (req, res) => res.send('Hello world.'))
+const { getSession } = require('./session')
+const session = getSession()
 
-app.listen(process.env.SERVER_PORT, () => console.log('Listening...'))
+app.get('/', async (req, res) => {
+  res.json({
+    message: 'Welcome to Logiflow API',
+    statusCode: 200,
+  })
+})
+
+app.use(express.json())
+
+const usersRouter = require('./routes/users')
+app.use('/users', usersRouter)
+
+app.listen(process.env.SERVER_PORT || 4000, () => console.log('Listening...'))

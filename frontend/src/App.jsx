@@ -1,23 +1,13 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import PrivateRoute from './components/PrivateRoute.jsx'
+import { Routes, Route } from 'react-router-dom'
+import Main from './routes/Main'
+import Login from './routes/Login'
 
-const App = () => {
-  const isAuthenticated = true
-
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <PrivateRoute
-          path="/dashboard"
-          component={Dashboard}
-          isAuthenticated={isAuthenticated}
-        />
-        <Route render={() => <Redirect to="/login" />} />
-      </Switch>
-    </Router>
-  )
-}
+const App = () => (
+  <Routes>
+    <Route path="/" element={<Main />} />
+    <Route path="/login" element={<Login />} />
+  </Routes>
+)
 
 export default App
