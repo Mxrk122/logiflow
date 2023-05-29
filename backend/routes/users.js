@@ -48,7 +48,7 @@ router.get('/:username/:password', async (req, res) => {
     }) RETURN u
   `, { username: username, password: password })
   const foundUser = result.records.map((record) => record.get('u').properties)
-  res.json(foundUser.length)
+  res.json(foundUser[0])
 })
 
 module.exports = router

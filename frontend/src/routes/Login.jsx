@@ -1,19 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Button from '../components/Button'
+import { UserContext } from '../providers/UserProvider'
 
 const Login = () => {
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
 
   const navigate = useNavigate()
+  const { setUser } = useContext(UserContext)
 
   const handleLogin = async () => {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/users/${username}/${password}`)
-    console.log(response.data)
     if (response.data) {
+      console.log(response.data)
+      setUser(response.data)
       navigate('/')
+    } else {
+      alert('User not found.')
     }
   }
 
