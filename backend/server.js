@@ -6,9 +6,6 @@ const app = express()
 const cors = require('cors')
 app.use(cors())
 
-const { getSession } = require('./session')
-const session = getSession()
-
 app.get('/', async (req, res) => {
   res.json({
     message: 'Welcome to Logiflow API',
