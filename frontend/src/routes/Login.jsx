@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Button from '../components/Button'
 import { UserContext } from '../providers/UserProvider'
+import "../scss/Login.scss"
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState()
@@ -23,7 +25,7 @@ const Login = () => {
   }
 
   return (
-    <>
+    <div className="login-container">
       <h1>Login</h1>
       <input
         type="text"
@@ -35,11 +37,20 @@ const Login = () => {
         placeholder="Password"
         onChange={(event) => setPassword(event.target.value)}
       />
-      <Button
-        text="Send"
-        onClick={handleLogin}
-      />
-    </>
+      <div className='form-group'>
+        <div className="button-group">
+          <Button
+            text="Ingresar"
+            onClick={handleLogin}
+          />
+          <Link to="/register">
+            <Button
+                text="Register"
+            />
+          </Link>
+        </div>
+      </div>
+    </div>
   )
 }
 
