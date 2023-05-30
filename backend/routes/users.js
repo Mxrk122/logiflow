@@ -51,4 +51,34 @@ router.get('/:username/:password', async (req, res) => {
   res.json(foundUser[0])
 })
 
+// Crear usuario
+router.post('/:create/', async (req, res) => {
+
+  const response = await session.run('MATCH (u: User) RETURN MAX(toInteger(u.userId)) as maxId');
+  const record = response.records[0];
+  console.log(record)
+  const maxId = record.get('maxId').toNumber() + 1;
+
+  const username = req.body.username;
+  const password = req.body.password;
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
+  const gender = req.body.gender;
+  const phone = req.body.phone;
+  const result = await session.run(`
+    CREATE (u:User {
+      id: $maxId,
+      username: $username,
+      password: $password,
+      firstname: $firstname,
+      lastname: $lastname,
+      gender: $gender,
+      phone: $phone
+    }) RETURN u
+  `, { username: username, password: password, firstname: firstname, lastname: lastname, gender: gender, phone: phone, maxId: maxId });
+  const createdUser = result.records.map((record) => record.get('u').properties);
+  res.json(createdUser[0]);
+
+});
+
 module.exports = router

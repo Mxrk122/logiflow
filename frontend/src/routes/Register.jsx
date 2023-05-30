@@ -17,6 +17,7 @@ const Register = () => {
     const { setUser } = useContext(UserContext)
 
     const handleRegister = async () => {
+        let data = {}
         if (
             firstname &&
             lastname &&
@@ -31,18 +32,26 @@ const Register = () => {
             console.log("password: "+ password)
             console.log("gender: " + gender)
             console.log("phone: "+phone)
+            data = {
+                firstname: firstname,
+                lastname: lastname,
+                username: username,
+                password: password,
+                phone: phone,
+                gender: gender
+            };
         } else {
             console.log("error faltan datos")
         }
 
-        // const response = await axios.get(`${import.meta.env.VITE_API_URL}/users/${username}/${password}`)
-        // if (response.data) {
-        // console.log(response.data)
-        // setUser(response.data)
-        // navigate('/')
-        // } else {
-        // alert('User not found.')
-        // }
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/create/`, data)
+        if (response.data) {
+            console.log(response.data)
+            setUser(response.data)
+            navigate('/')
+        } else {
+            alert('User not found.')
+        }
     }
 
     return (
