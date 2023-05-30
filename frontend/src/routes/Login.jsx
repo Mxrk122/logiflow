@@ -16,7 +16,7 @@ const Login = () => {
     if (response.data) {
       console.log(response.data)
       setUser(response.data)
-      navigate('/')
+      navigate('/mainpage')
     } else {
       alert('User not found.')
     }

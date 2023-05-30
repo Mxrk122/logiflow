@@ -65,6 +65,7 @@ router.post('/:create/', async (req, res) => {
   const lastname = req.body.lastname;
   const gender = req.body.gender;
   const phone = req.body.phone;
+  const admin = req.body.admin;
   const result = await session.run(`
     CREATE (u:User {
       id: $maxId,
@@ -73,9 +74,11 @@ router.post('/:create/', async (req, res) => {
       firstname: $firstname,
       lastname: $lastname,
       gender: $gender,
-      phone: $phone
+      phone: $phone,
+      admin: $admin
     }) RETURN u
-  `, { username: username, password: password, firstname: firstname, lastname: lastname, gender: gender, phone: phone, maxId: maxId });
+  `, { username: username, password: password, firstname: firstname, lastname: lastname, gender: gender, phone: phone, maxId: maxId,
+  admin: admin });
   const createdUser = result.records.map((record) => record.get('u').properties);
   res.json(createdUser[0]);
 

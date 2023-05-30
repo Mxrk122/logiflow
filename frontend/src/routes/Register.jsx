@@ -12,6 +12,7 @@ const Register = () => {
     const [password, setPassword] = useState()
     const [gender, setGender] = useState("")
     const [phone, setPhone] = useState()
+    const [code, setCode] = useState()
 
     const navigate = useNavigate()
     const { setUser } = useContext(UserContext)
@@ -26,19 +27,22 @@ const Register = () => {
             phone &&
             (gender === "Male" || gender === "Female")
         ) {
+            const admin = (code === "123456")
             console.log("firstname: "+ firstname)
             console.log("lastname: "+ lastname)
             console.log("username: " + username)
             console.log("password: "+ password)
             console.log("gender: " + gender)
             console.log("phone: "+phone)
+            console.log("admin: ", admin)
             data = {
                 firstname: firstname,
                 lastname: lastname,
                 username: username,
                 password: password,
                 phone: phone,
-                gender: gender
+                gender: gender,
+                admin: admin
             };
         } else {
             console.log("error faltan datos")
@@ -116,6 +120,13 @@ const Register = () => {
                     type="password"
                     placeholder="Password"
                     onChange={(event) => setPassword(event.target.value)}
+                />
+            </div>
+            <div className='form-group'>
+                <input
+                    type="Admin code"
+                    placeholder="Admin code"
+                    onChange={(event) => setCode(event.target.value)}
                 />
             </div>
             <div className='form-group'>
