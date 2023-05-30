@@ -14,12 +14,11 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const userId = parseInt(req.params.id, 10)
-  console.log('asdñlkfj')
   const result = await session.run(`
     MATCH (u: User {userId: $userId}) RETURN u
   `, { userId: userId })
   const user = result.records.map((record) => record.get('u').properties)
-  res.json(user)
+  res.json(user[0])
 })
 
 router.get('/:id/lives-in', async (req, res) => {
@@ -28,14 +27,38 @@ router.get('/:id/lives-in', async (req, res) => {
     MATCH (u: User {userId: $userId}) - [r:LIVES_IN] -> (l: Location) RETURN u, r, l
   `, { userId: userId })
   const foundLocation = result.records.map((record) => {
-    console.log(record.get('u').properties, record.get('r').properties, record.get('l').properties)
     return {
       user: record.get('u').properties,
       relationship: record.get('r').properties,
       location: record.get('l').properties
     }
   })
-  res.json(foundLocation)
+  res.json(foundLocation[0])
+})
+
+// Obtener todos los shippings relacionados al userId actual
+router.get('/:id/my-shippings', async (req, res) => {
+  const userId = parseInt(req.params.id,10)
+  const result = await session.run(`
+    MATCH (u:User {userId: $userId})-[:RECEIVES]->(s:Shipping)
+    OPTIONAL MATCH (assetVehicle:Asset:Vehicle)-[:DELIVERS]->(s)
+    OPTIONAL MATCH (branchBuilding:Branch:Building)-[:OWNS]->(assetVehicle)
+    RETURN s, assetVehicle, branchBuilding
+  `, { userId: userId })
+
+  const shippings = result.records.map((record) => {
+    const shipping = record.get('s').properties
+    const assetVehicle = record.get('assetVehicle') ? record.get('assetVehicle').properties : null;
+    const branchBuilding = record.get('branchBuilding') ? record.get('branchBuilding').properties : null;
+
+    return {
+      shipping,
+      assetVehicle,
+      branchBuilding
+    }
+  })
+
+  res.json(shippings);
 })
 
 router.get('/:username/:password', async (req, res) => {
@@ -52,36 +75,37 @@ router.get('/:username/:password', async (req, res) => {
 })
 
 // Crear usuario
-router.post('/:create/', async (req, res) => {
+router.post('/create', async (req, res) => {
 
-  const response = await session.run('MATCH (u: User) RETURN MAX(toInteger(u.userId)) as maxId');
-  const record = response.records[0];
+  const response = await session.run('MATCH (u: User) RETURN MAX(toInteger(u.userId)) as maxId')
+  const record = response.records[0]
   console.log(record)
-  const maxId = record.get('maxId').toNumber() + 1;
+  const maxId = record.get('maxId').toNumber() + 1
 
-  const username = req.body.username;
-  const password = req.body.password;
-  const firstname = req.body.firstname;
-  const lastname = req.body.lastname;
-  const gender = req.body.gender;
-  const phone = req.body.phone;
-  const admin = req.body.admin;
+  const username = req.body.username
+  const password = req.body.password
+  const firstname = req.body.firstname
+  const lastname = req.body.lastname
+  const gender = req.body.gender
+  const phone = req.body.phone
   const result = await session.run(`
-    CREATE (u:User {
-      id: $maxId,
+    CREATE (u: User {
+      userId: $maxId,
       username: $username,
       password: $password,
-      firstname: $firstname,
-      lastname: $lastname,
+      firstName: $firstname,
+      lastName: $lastname,
       gender: $gender,
       phone: $phone,
       admin: $admin
     }) RETURN u
-  `, { username: username, password: password, firstname: firstname, lastname: lastname, gender: gender, phone: phone, maxId: maxId,
-  admin: admin });
-  const createdUser = result.records.map((record) => record.get('u').properties);
-  res.json(createdUser[0]);
+  `, { username: username, password: password, firstname: firstname, lastname: lastname, gender: gender, phone: phone, maxId: maxId })
+  const createdUser = result.records.map((record) => record.get('u').properties)
+  res.json(createdUser[0])
 
-});
+})
+
+
+
 
 module.exports = router

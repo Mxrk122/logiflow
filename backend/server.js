@@ -18,7 +18,7 @@ app.use(express.json())
 const usersRouter = require('./routes/users')
 app.use('/users', usersRouter)
 
-const buildingsRouter = require('./routes/buildings')
-app.use('/buildings', buildingsRouter)
+const branchesRouter = require('./routes/branches')
+app.use('/branches', branchesRouter)
 
 app.listen(process.env.SERVER_PORT || 4000, () => console.log('Listening...'))
