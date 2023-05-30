@@ -5,6 +5,7 @@ import Login from './routes/Login'
 import Register from './routes/Register'
 import Landing from './routes/Landing'
 import Profile from './routes/Profile'
+import MyShippings from './routes/MyShippings'
 
 const App = () => (
   <Routes>
@@ -13,6 +14,7 @@ const App = () => (
     <Route path="/register" element={<Register />} />
     <Route path="/landing" element={<Landing />} />
     <Route path="/profile" element={<Profile />} />
+    <Route path="/my-shippings" element={<MyShippings />} />
   </Routes>
 )
 

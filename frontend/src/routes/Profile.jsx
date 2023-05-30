@@ -37,6 +37,7 @@ const Profile = () => {
           <Link to="/address-configuration">Aquí</Link>
         </>
       )}
+      <Link to="/my-shippings">Mira tus pedidos aquí</Link>
     </>
   )
 }

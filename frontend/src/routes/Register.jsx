@@ -45,7 +45,7 @@ const Register = () => {
             console.log("error faltan datos")
         }
 
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/create/`, data)
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/users/create`, data)
         if (response.data) {
             console.log(response.data)
             setUser(response.data)
