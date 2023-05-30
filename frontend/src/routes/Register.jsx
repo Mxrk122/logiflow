@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Button from '../components/Button'
 import { UserContext } from '../providers/UserProvider'
-import '../css/Register.css'; 
+import '../scss/Register.scss'; 
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     const [firstname, setFirstname] = useState()
@@ -55,76 +56,84 @@ const Register = () => {
     }
 
     return (
-        <div className='register-containter'>
+        <div className='register-container'>
             <h1>Register</h1>
-            <div className='form-group'>
-                <input
-                    type="text"
-                    placeholder="First Name"
-                    value={firstname}
-                    onChange={(event) => setFirstname(event.target.value)}
-                /> 
-            </div>
-            <div className='form-group'>
-                <input
-                    type="lastName"
-                    placeholder="Last Name"
-                    onChange={(event) => setLastname(event.target.value)}
-                /> 
-            </div>
-            <div className='form-group'>
-                <p>Gender: 
-                    <select
-                        value={gender}
-                        onChange={(event) => setGender(event.target.value)}
-                    >
-                        {gender === "" ?(
-                            <>
-                                <option value="">Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </>
-                        ): (
-                            <>
-                                <option value={gender}>{gender}</option>
-                                {gender === 'Male' ? (
-                                <option value="Female">Female</option>
-                                ) : (
-                                <option value="Male">Male</option>
-                                )}
-                            </>
-                        )}
-                    </select>
-                </p>
-            </div>
-            <div className='form-group'>
-                <input
-                    type="phone"
-                    placeholder="Phone number"
-                    onChange={(event) => setPhone(event.target.value)}
-                /> 
-            </div>
-            <div className='form-group'>
-                <input
-                    type="user"
-                    placeholder="Username"
-                    onChange={(event) => setUsername(event.target.value)}
-                /> 
-            </div>
-            <div className='form-group'>
-                <input
-                    type="password"
-                    placeholder="Password"
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-            </div>
-            <div className='form-group'>
-                <Button
-                    text="Send"
-                    onClick={handleRegister}
-                />
-            </div>
-            
+            <form className='register-form'>
+                <div className='form-group'>
+                    <input
+                        type="text"
+                        placeholder="First Name"
+                        value={firstname}
+                        onChange={(event) => setFirstname(event.target.value)}
+                    /> 
+                </div>
+                <div className='form-group'>
+                    <input
+                        type="lastName"
+                        placeholder="Last Name"
+                        onChange={(event) => setLastname(event.target.value)}
+                    /> 
+                </div>
+                <div className='form-group'>
+                    <p>Gender: 
+                        <select
+                            value={gender}
+                            onChange={(event) => setGender(event.target.value)}
+                        >
+                            {gender === "" ?(
+                                <>
+                                    <option value="">Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </>
+                            ): (
+                                <>
+                                    <option value={gender}>{gender}</option>
+                                    {gender === 'Male' ? (
+                                    <option value="Female">Female</option>
+                                    ) : (
+                                    <option value="Male">Male</option>
+                                    )}
+                                </>
+                            )}
+                        </select>
+                    </p>
+                </div>
+                <div className='form-group'>
+                    <input
+                        type="phone"
+                        placeholder="Phone number"
+                        onChange={(event) => setPhone(event.target.value)}
+                    /> 
+                </div>
+                <div className='form-group'>
+                    <input
+                        type="user"
+                        placeholder="Username"
+                        onChange={(event) => setUsername(event.target.value)}
+                    /> 
+                </div>
+                <div className='form-group'>
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        onChange={(event) => setPassword(event.target.value)}
+                    />
+                </div>
+                <div className='form-group'>
+                    <div className="button-group">
+                        <Button
+                        text="Send"
+                        onClick={handleRegister}
+                        />
+                        <Link to="/login">
+                            <Button
+                                text="Login"
+                            />
+                        </Link>
+                    </div>
+                </div>
+            </form>
         </div>
     )
 }

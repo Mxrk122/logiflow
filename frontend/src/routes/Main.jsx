@@ -1,26 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Button from '../components/Button'
+import '../scss/Main.scss'
 
 const Main = () => (
-  <>
-    <h1>Main</h1>
-    <view>
+  <div className="main-container">
+    <h1>LogiFlow</h1>
+    <div className="button-group">
       <Link to="/login">
-        <Button
-          text="LOGIN"
-        />
+        <Button text="LOGIN" />
       </Link>
-    </view>
-    <view>
-      <Link to ="/register">
-        <Button 
-          text="REGISTER"
-        />
+      <Link to="/register">
+        <Button text="REGISTER" />
       </Link>
-    </view>
-    
-  </>
+    </div>
+  </div>
 )
 
 export default Main
