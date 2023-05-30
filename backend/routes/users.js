@@ -36,6 +36,31 @@ router.get('/:id/lives-in', async (req, res) => {
   res.json(foundLocation[0])
 })
 
+// Obtener todos los shippings relacionados al userId actual
+router.get('/:id/my-shippings', async (req, res) => {
+  const userId = parseInt(req.params.id,10)
+  const result = await session.run(`
+    MATCH (u:User {userId: $userId})-[:RECEIVES]->(s:Shipping)
+    OPTIONAL MATCH (assetVehicle:Asset:Vehicle)-[:DELIVERS]->(s)
+    OPTIONAL MATCH (branchBuilding:Branch:Building)-[:OWNS]->(assetVehicle)
+    RETURN s, assetVehicle, branchBuilding
+  `, { userId: userId })
+
+  const shippings = result.records.map((record) => {
+    const shipping = record.get('s').properties
+    const assetVehicle = record.get('assetVehicle') ? record.get('assetVehicle').properties : null;
+    const branchBuilding = record.get('branchBuilding') ? record.get('branchBuilding').properties : null;
+
+    return {
+      shipping,
+      assetVehicle,
+      branchBuilding
+    }
+  })
+
+  res.json(shippings);
+})
+
 router.get('/:username/:password', async (req, res) => {
   const username = req.params.username
   const password = req.params.password
@@ -78,5 +103,8 @@ router.post('/create', async (req, res) => {
   res.json(createdUser[0])
 
 })
+
+
+
 
 module.exports = router
