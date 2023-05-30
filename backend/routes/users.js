@@ -14,12 +14,11 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   const userId = parseInt(req.params.id, 10)
-  console.log('asdñlkfj')
   const result = await session.run(`
     MATCH (u: User {userId: $userId}) RETURN u
   `, { userId: userId })
   const user = result.records.map((record) => record.get('u').properties)
-  res.json(user)
+  res.json(user[0])
 })
 
 router.get('/:id/lives-in', async (req, res) => {
@@ -28,14 +27,13 @@ router.get('/:id/lives-in', async (req, res) => {
     MATCH (u: User {userId: $userId}) - [r:LIVES_IN] -> (l: Location) RETURN u, r, l
   `, { userId: userId })
   const foundLocation = result.records.map((record) => {
-    console.log(record.get('u').properties, record.get('r').properties, record.get('l').properties)
     return {
       user: record.get('u').properties,
       relationship: record.get('r').properties,
       location: record.get('l').properties
     }
   })
-  res.json(foundLocation)
+  res.json(foundLocation[0])
 })
 
 router.get('/:username/:password', async (req, res) => {
