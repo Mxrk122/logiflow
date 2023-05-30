@@ -74,13 +74,10 @@ router.get('/:username/:password', async (req, res) => {
   res.json(foundUser[0])
 })
 
-// Crear usuario
 router.post('/create', async (req, res) => {
-
   const response = await session.run('MATCH (u: User) RETURN MAX(toInteger(u.userId)) as maxId')
   const record = response.records[0]
-  console.log(record)
-  const maxId = record.get('maxId').toNumber() + 1
+  const maxId = parseInt(record.get('maxId').toNumber() + 1)
 
   const username = req.body.username
   const password = req.body.password
@@ -102,7 +99,21 @@ router.post('/create', async (req, res) => {
   `, { username: username, password: password, firstname: firstname, lastname: lastname, gender: gender, phone: phone, maxId: maxId })
   const createdUser = result.records.map((record) => record.get('u').properties)
   res.json(createdUser[0])
+})
 
+router.post('/config-address', async (req, res) => {
+  const userId = req.body.userId
+  const address = req.body.location
+  const exactAddress = req.body.address
+  const since = req.body.since
+  const result = await session.run(`
+    MATCH (u: User {userId: $userId})
+    MATCH (l: Location {address: $address})
+    CREATE (u) - [r:LIVES_IN {exactAddress: $exactAddress, since: $since}] -> (l)
+    RETURN r
+  `, { userId, address, exactAddress, since })
+  const createdAddress = result.records.map((record) => record.get('r').properties)
+  res.json(createdAddress[0])
 })
 
 
