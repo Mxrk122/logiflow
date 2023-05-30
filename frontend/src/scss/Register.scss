@@ -1,0 +1,61 @@
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+  
+    h1 {
+      font-size: 100px;
+      margin-bottom: 100px;
+    }
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+      width: 100%;
+  
+      select {
+        width: 80%;
+      }
+  
+      button {
+        margin-top: 10px;
+      }
+    }
+  }
+  
+  input,
+  select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-left: 5px;
+    width: 100%;
+  }
+  
+  p {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  
+    button {
+      flex-basis: 48%;
+    }
+  }
+  
