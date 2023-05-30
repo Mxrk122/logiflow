@@ -5,11 +5,21 @@ import Button from '../components/Button'
 const Main = () => (
   <>
     <h1>Main</h1>
-    <Link to="/login">
-      <Button
-        text="Hello"
-      />
-    </Link>
+    <view>
+      <Link to="/login">
+        <Button
+          text="LOGIN"
+        />
+      </Link>
+    </view>
+    <view>
+      <Link to ="/register">
+        <Button 
+          text="REGISTER"
+        />
+      </Link>
+    </view>
+    
   </>
 )
 
