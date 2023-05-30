@@ -9,6 +9,7 @@ const Landing = () => {
     <>
       <h1>Landing</h1>
       <Link to="/profile">Profile Here</Link>
+      {user.admin ? <Link to="/landing/createbuilding">create building</Link> : null}
     </>
   )
 }

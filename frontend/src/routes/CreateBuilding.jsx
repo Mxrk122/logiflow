@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Button from '../components/Button'
 import { UserContext } from '../providers/UserProvider'
-import '../css/Register.css'; 
 
 const Register = () => {
     const [name, setname] = useState()
