@@ -14,11 +14,7 @@ const Landing = () => {
         {user.admin ? <Link to="/landing/createbuilding">create building</Link> : null}
         {user.admin ? <Link to="/landing/addVehicle">add vehicle</Link> : null}
         {user.admin ? <Link to="/landing/vehicleOwns">Delete Vehicle</Link> : null}
-<<<<<<< HEAD
         {user.admin ? <Link to="/landing/deletePropertie">Delete a relation property</Link> : null}
-=======
-        {user.admin ? <Link to="/landing/dop">Delete order priority</Link> : null}
->>>>>>> delete-priority
       </div>
     </div>
   )
