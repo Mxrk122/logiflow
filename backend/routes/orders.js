@@ -103,4 +103,34 @@ router.post('/create', async (req, res) => {
   res.json({ createdOrder, createdShipping, createdMakesAn, createdOrderEntry, createdDelivers, createdGoesTo, createdReceives })
 })
 
+//Mostrar todas las ordenes
+router.get('/', async (req, res) => {
+  const result = await session.run('MATCH (o: Order) RETURN o')
+  const orders = result.records.map((record) => record.get('o').properties)
+  res.json(orders)
+})
+
+//Borrar fecha
+router.patch('/dd', async (req, res) => {
+  const nodeId = req.body.nodeId;
+
+  try {
+    const result = await session.run(
+      `MATCH (o: Order {orderId: ${nodeId}}) REMOVE o.date`
+    );
+
+    console.log(`MATCH (o: Order {orderId: ${nodeId}}) REMOVE o.date`)
+
+    console.log(result.summary.counters)
+
+    console.log(`Property date removed from node with ID ${nodeId}`);
+
+    res.status(200).send('Property removed successfully');
+  } catch (error) {
+    console.error('Error removing property:', error);
+    res.status(500).send('An error occurred while removing the property');
+  }
+})
+
+
 module.exports = router

@@ -13,6 +13,7 @@ const Landing = () => {
         {user.admin ? <Link to="/landing/createbuilding">create building</Link> : null}
         {user.admin ? <Link to="/landing/addVehicle">add vehicle</Link> : null}
         {user.admin ? <Link to="/landing/vehicleOwns">Delete Vehicle</Link> : null}
+        {user.admin ? <Link to="/landing/dop">Delete order priority</Link> : null}
       </div>
     </div>
   )
