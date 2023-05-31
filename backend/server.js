@@ -24,4 +24,7 @@ app.use('/branches', branchesRouter)
 const locationsRouter = require('./routes/locations')
 app.use('/locations', locationsRouter)
 
+const ordersRouter = require('./routes/orders')
+app.use('/orders', ordersRouter)
+
 app.listen(process.env.SERVER_PORT || 4000, () => console.log('Listening...'))
