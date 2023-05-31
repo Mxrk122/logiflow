@@ -1,24 +1,24 @@
-import React, { useContext, useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { UserContext } from '../providers/UserProvider'
-import "../scss/MyShipping.scss"
+import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { UserContext } from '../providers/UserProvider';
+import '../scss/MyShipping.scss';
 
 const MyShippings = () => {
-  const { user } = useContext(UserContext)
-
-  const userId = user.userId.low
-
-  const [userShipping, setUserShipping] = useState([])
+  const { user } = useContext(UserContext);
+  const userId = user.userId.low;
+  const [userShipping, setUserShipping] = useState([]);
 
   useEffect(() => {
     const getUserDirection = async () => {
-      const userShippingResult = await axios.get(`${import.meta.env.VITE_API_URL}/users/${userId}/my-shippings`)
-      console.log("userShippingResult.data:", userShippingResult.data)
-      setUserShipping(userShippingResult.data)
-    }
-    getUserDirection()
-  }, [])
+      const userShippingResult = await axios.get(
+        `${import.meta.env.VITE_API_URL}/users/${userId}/my-shippings`
+      );
+      console.log('userShippingResult.data:', userShippingResult.data);
+      setUserShipping(userShippingResult.data);
+    };
+    getUserDirection();
+  }, []);
 
   return (
     <>
@@ -30,17 +30,24 @@ const MyShippings = () => {
               <th>Shipping ID</th>
               <th>Estado</th>
               <th>Products</th>
+              {/* <th>Order Date</th>
+              <th>Total Price</th> */}
               <th>Vehicle Brand</th>
               <th>Vehicle Model</th>
               <th>Local Name</th>
             </tr>
           </thead>
           <tbody>
-            {userShipping.map((shipping) => (
-              <tr key={shipping.shipping.shippingId.low}>
+            {userShipping.map((shipping, index) => (
+              <tr key={index}>
                 <td>{shipping.shipping.shippingId.low}</td>
                 <td>{shipping.shipping.status ? 'Delivered' : 'Undelivered'}</td>
                 <td>{shipping.shipping.products.join(', ')}</td>
+                {/* <td>
+                  {shipping.orders.date.year.low}-{shipping.orders.date.month.low}-
+                  {shipping.orders.date.day.low}
+                </td>
+                <td>{shipping.orders.totalAmount}</td> */}
                 <td>{shipping.assetVehicle.brand}</td>
                 <td>{shipping.assetVehicle.model}</td>
                 <td>{shipping.branchBuilding.name}</td>
@@ -54,6 +61,6 @@ const MyShippings = () => {
       <Link to="/profile">Regresar</Link>
     </>
   );
-}
+};
 
-export default MyShippings
+export default MyShippings;

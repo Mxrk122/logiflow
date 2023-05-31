@@ -8,6 +8,7 @@ import Profile from './routes/Profile'
 import AddressConfig from './routes/AddressConfig'
 import MyShippings from './routes/MyShippings'
 import CreateBuilding from './routes/CreateBuilding'
+import AddVehicle from './routes/addVehicle'
 
 const App = () => (
   <Routes>
@@ -16,6 +17,7 @@ const App = () => (
     <Route path="/register" element={<Register />} />
     <Route path="/landing" element={<Landing />} />
     <Route path="/landing/createbuilding" element={<CreateBuilding />} />
+    <Route path="/landing/addVehicle" element={<AddVehicle />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/address-config" element={<AddressConfig />} />
     <Route path="/my-shippings" element={<MyShippings />} />

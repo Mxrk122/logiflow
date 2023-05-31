@@ -36,6 +36,17 @@ router.get('/:id/lives-in', async (req, res) => {
   res.json(foundLocation[0])
 })
 
+function parseOrders(orders) {
+  // Verificar si totalAmount tiene las propiedades low y high
+  if ('low' in orders.totalAmount && 'high' in orders.totalAmount) {
+    return {
+      ...orders,
+      totalAmount: orders.totalAmount.low,
+    };
+  }
+  return orders;
+}
+
 // Obtener todos los shippings relacionados al userId actual
 router.get('/:id/my-shippings', async (req, res) => {
   const userId = parseInt(req.params.id,10)
@@ -43,18 +54,21 @@ router.get('/:id/my-shippings', async (req, res) => {
     MATCH (u:User {userId: $userId})-[:RECEIVES]->(s:Shipping)
     OPTIONAL MATCH (assetVehicle:Asset:Vehicle)-[:DELIVERS]->(s)
     OPTIONAL MATCH (branchBuilding:Branch:Building)-[:OWNS]->(assetVehicle)
-    RETURN s, assetVehicle, branchBuilding
+    OPTIONAL MATCH (u)-[:MAKES_AN]->(orders:Order)
+    RETURN s, assetVehicle, branchBuilding, orders
   `, { userId: userId })
 
   const shippings = result.records.map((record) => {
     const shipping = record.get('s').properties
     const assetVehicle = record.get('assetVehicle') ? record.get('assetVehicle').properties : null;
     const branchBuilding = record.get('branchBuilding') ? record.get('branchBuilding').properties : null;
+    const orders = record.get('orders') ? parseOrders(record.get('orders').properties) : null;
 
     return {
       shipping,
       assetVehicle,
-      branchBuilding
+      branchBuilding,
+      orders
     }
   })
 
