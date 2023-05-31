@@ -13,7 +13,11 @@ import MyShippings from './routes/MyShippings'
 import CreateBuilding from './routes/CreateBuilding'
 import AddVehicle from './routes/addVehicle'
 import VehicleOwns from './routes/vehicleOwnship'
+<<<<<<< HEAD
 import DeleteRelationProps from './routes/DeleteRelationProperties'
+=======
+import DeleteOrderPriority from './routes/DeleteOrderPriority'
+>>>>>>> delete-priority
 import './scss/Styles.scss'
 
 const App = () => (
@@ -24,7 +28,7 @@ const App = () => (
     <Route path="/landing" element={<Landing />} />
     <Route path="/landing/addVehicle" element={<AddVehicle />} />
     <Route path="/landing/vehicleOwns" element={<VehicleOwns />} />
-    <Route path="/landing/deletePropertie" element={<DeleteRelationProps />} />
+    <Route path="/landing/dop" element={<DeleteOrderPriority />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/order" element={<Order />} />
     <Route path="/account-update" element={<AccountUpdate />} />
