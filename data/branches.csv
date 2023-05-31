@@ -2,3 +2,4 @@ branchId,name,type,ownsBuilding
 0,Logiflow Zona 11,Building,false
 1,Logiflow Zona 12,Local,true
 2,Logiflow San Cristóbal,Building,false
+3,Logiflow Zona 10,Local,true
