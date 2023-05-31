@@ -10,14 +10,12 @@ const Landing = () => {
     <div className='bg'>
       <div className='main-container'>
         <h1>Landing</h1>
-        <div className='button-group'>
-          <Link to="/profile"><Button text='Profile Here' /></Link>
-          <Link to="/order"><Button text='Make an Order here' /></Link>
-          {user.admin ? <Link to="/landing/createbuilding"><Button text='create building' /></Link> : null}
-          {user.admin ? <Link to="/landing/addVehicle"><Button text='add vehicle' /></Link> : null}
-          {user.admin ? <Link to="/landing/vehicleOwns"><Button text='Delete Vehicle' /></Link> : null}
-          {user.admin ? <Link to="/landing/dop"><Button text='Delete order priority' /></Link> : null}
-        </div>
+        <Link to="/profile">Profile Here</Link>
+        <Link to="/order">Make an Order here</Link>
+        {user.admin ? <Link to="/landing/createbuilding">create building</Link> : null}
+        {user.admin ? <Link to="/landing/addVehicle">add vehicle</Link> : null}
+        {user.admin ? <Link to="/landing/vehicleOwns">Delete Vehicle</Link> : null}
+        {user.admin ? <Link to="/landing/deletePropertie">Delete a relation property</Link> : null}
       </div>
     </div>
   )

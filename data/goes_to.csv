@@ -1,0 +1,15 @@
+shippingId,userId,expectedDate,isExpress
+9,3,"2023-05-31",true
+12.0,3,Wed May 31 2023,false
+11.0,3,Wed May 31 2023,true
+4,1,"2023-02-26",true
+10,1,"2023-05-31",false
+5.0,0,Tue May 30 2023,false
+1,0,"2023-02-18",true
+6.0,0,Wed May 31 2023,false
+0,0,"2023-02-14",true
+8.0,0,Wed May 31 2023,false
+13.0,4.0,Wed May 31 2023,false
+15.0,4.0,Wed May 31 2023,true
+16.0,4.0,Wed May 31 2023,false
+14.0,4.0,Wed May 31 2023,false
