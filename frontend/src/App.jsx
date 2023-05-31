@@ -13,11 +13,8 @@ import MyShippings from './routes/MyShippings'
 import CreateBuilding from './routes/CreateBuilding'
 import AddVehicle from './routes/addVehicle'
 import VehicleOwns from './routes/vehicleOwnship'
-<<<<<<< HEAD
-import './scss/Styles.scss'
-=======
 import DeleteRelationProps from './routes/DeleteRelationProperties'
->>>>>>> deleteRelationProperties
+import './scss/Styles.scss'
 
 const App = () => (
   <Routes>
@@ -25,13 +22,9 @@ const App = () => (
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
     <Route path="/landing" element={<Landing />} />
-<<<<<<< HEAD
-=======
-    <Route path="/landing/createbuilding" element={<CreateBuilding />} />
-    <Route path="/landing/deleteProps" element={<DeleteRelationProps />} />
->>>>>>> deleteRelationProperties
     <Route path="/landing/addVehicle" element={<AddVehicle />} />
     <Route path="/landing/vehicleOwns" element={<VehicleOwns />} />
+    <Route path="/landing/deletePropertie" element={<DeleteRelationProps />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/order" element={<Order />} />
     <Route path="/account-update" element={<AccountUpdate />} />

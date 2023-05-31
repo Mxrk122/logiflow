@@ -96,8 +96,8 @@ const DeleteRelationProps = () => {
             handleOrderChange(event);
           }}
         >
-          <option value=''>Seleccionar vehiculo</option>
-          {orders.map((order, index) => (
+          <option value=''>Seleccionar Id de la orden</option>
+          {orders .sort((a, b) => a.orderId - b.orderId).map((order, index) => (
             <option key={index} value={order.orderId}>
               {order.orderId}
             </option>
