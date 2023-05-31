@@ -1,14 +1,19 @@
+.app{
+  background-color: #FFC90D;
+}
+
 .login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    height: 50%;
+    width: 50%;
     background-color: #f5f5f5;
+    margin-bottom: 100px;
   
     h1 {
-      padding-top: 15%;
       font-size: 80px;
-      margin-bottom: 40px;
       font-family: "Arial", sans-serif
     }
   
@@ -19,22 +24,12 @@
     }
   }
   
-  .button-group {
-    display: flex;
-    justify-content: space-between;
-    width: 10px; 
-  
-    button {
-      margin-left: 10px; 
-    }
-  }
-  
 
   .form-group {
     display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-    width: 13%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 50%;
 
     select {
       width: 80%;
@@ -42,5 +37,8 @@
 
     button {
       margin-top: 10px;
+      background-color: #3F47CC;
+      border: 0;
+      color: #FFFFFF;
     }
   }
