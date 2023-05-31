@@ -7,12 +7,13 @@ import '../scss/Profile.scss'
 const Profile = () => {
   const { user } = useContext(UserContext)
 
-  const userId = user.userId.low || user.userId
+  const userId = (typeof user.userId === "object") ? user.userId.low : user.userId
 
   const [userDirection, setUserDirection] = useState()
 
   useEffect(() => {
     const getUserDirection = async () => {
+      console.log(typeof user.userId)
       const userDirectionResult = await axios.get(`${import.meta.env.VITE_API_URL}/users/${userId}/lives-in`)
       setUserDirection(userDirectionResult.data)
     }
