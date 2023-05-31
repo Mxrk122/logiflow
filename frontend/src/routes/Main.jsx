@@ -5,7 +5,7 @@ import '../scss/Main.scss'
 
 const Main = () => (
   <div className="bg">
-    <div className="main-container">
+    <div className="title-container">
       <h1>LogiFlow</h1>
       <div className="button-group">
         <Link to="/login">
