@@ -17,7 +17,6 @@ const Profile = () => {
 
   useEffect(() => {
     const getUserDirection = async () => {
-      console.log(typeof user.userId)
       const userDirectionResult = await axios.get(`${import.meta.env.VITE_API_URL}/users/${userId}/lives-in`)
       setUserDirection(userDirectionResult.data)
     }
@@ -48,6 +47,7 @@ const Profile = () => {
         <Link to="/account-update">Actualiza tus datos aquí</Link>
         <Link to="/address-update">Actualiza tu dirección aquí</Link>
         <Link to="/my-shippings">Mira tus pedidos aquí</Link>
+        <Link to="/landing">Back</Link>
         <p> </p>
         <Button text="Eliminar mi perfil" onClick={handleDelete}/>
       </div>

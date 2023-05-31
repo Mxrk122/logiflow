@@ -20,6 +20,7 @@ router.post('/create', async (req, res) => {
   const priority = req.body.priority
   const isUrgent = priority === 5
   const isFragile = req.body.isFragile
+  const receivedBy = req.body.receivedBy
 
   const userBranch = await session.run(`
     MATCH (u: User {userId: $userId}) - [r:LIVES_IN] -> (l: Location)
@@ -36,8 +37,6 @@ router.post('/create', async (req, res) => {
   const vehicles = branchVehicles.records.map((record) => record.get('v').properties)
   const vehicle = vehicles[Math.floor(Math.random() * vehicles.length)]
   const vehicleId = (typeof vehicle.vehicleId === "object") ? vehicle.vehicleId.low : vehicle.vehicleId
-
-  console.log(vehicleId)
 
   const orderCreation = await session.run(`
     CREATE (o: Order {
@@ -93,7 +92,15 @@ router.post('/create', async (req, res) => {
   `, { shippingId, userId, date, isUrgent })
   const createdGoesTo = goesToCreation.records.map((record) => record.get('gt').properties)[0]
 
-  res.json({ createdOrder, createdShipping, createdMakesAn, createdOrderEntry, createdDelivers, createdGoesTo })
+  const receivesCreation = await session.run(`
+    MATCH (u: User {userId: $userId})
+    MATCH (s: Shipping {shippingId: $shippingId})
+    CREATE (u) - [r:RECEIVES {deliveryDate: $date, isSigned: true, receivedBy: $receivedBy}] -> (s)
+    RETURN r
+  `, { userId, shippingId, date, receivedBy })
+  const createdReceives = receivesCreation.records.map((record) => record.get('r').properties)[0]
+
+  res.json({ createdOrder, createdShipping, createdMakesAn, createdOrderEntry, createdDelivers, createdGoesTo, createdReceives })
 })
 
 module.exports = router

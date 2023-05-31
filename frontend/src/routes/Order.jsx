@@ -13,6 +13,7 @@ const Order = () => {
   const [priority, setPriority] = useState()
   const [isFragile, setIsFragile] = useState(false)
   const [price, setPrice] = useState()
+  const [receivedBy, setReceivedBy] = useState()
 
   const navigate = useNavigate()
 
@@ -25,8 +26,8 @@ const Order = () => {
   }, [amount, priority])
 
   const handleOrderSubmit = async () => {
-    if (amount && products && priority) {
-      const data = { userId, amount, products, priority, isFragile }
+    if (amount && products && priority && receivedBy) {
+      const data = { userId, amount, products, priority, isFragile, receivedBy }
       const result = await axios.post(`${import.meta.env.VITE_API_URL}/orders/create`, data)
       if (result.data) {
         alert('Tu pedido ha ingresado con éxito.')
@@ -49,6 +50,10 @@ const Order = () => {
         <input
           placeholder="Ingrese los productos de su compra separados por una coma"
           onChange={(event) => setProducts(event.target.value)}
+        />
+        <input
+          placeholder="Ingrese el nombre del receptor del envío"
+          onChange={(event) => setReceivedBy(event.target.value)}
         />
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <p>Urgencia del pedido</p>
