@@ -35,10 +35,10 @@ const Register = () => {
             console.log("error faltan datos")
         }
 
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/buildings/create`, data)
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/branches/create`, data)
         if (response.data) {
             console.log(response.data)
-            navigate('/mainpage')
+            navigate('/landing')
         } else {
             alert('User not found.')
         }
