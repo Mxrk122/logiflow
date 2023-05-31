@@ -98,6 +98,7 @@ router.post('/create', async (req, res) => {
   const lastname = req.body.lastname
   const gender = req.body.gender
   const phone = req.body.phone
+  const admin = req.body.admin
   const result = await session.run(`
     CREATE (u: User {
       userId: $maxId,
@@ -109,7 +110,8 @@ router.post('/create', async (req, res) => {
       phone: $phone,
       admin: $admin
     }) RETURN u
-  `, { username: username, password: password, firstname: firstname, lastname: lastname, gender: gender, phone: phone, maxId: maxId })
+  `, { username: username, password: password, firstname: firstname, lastname: lastname, gender: gender, phone: phone, maxId: maxId,
+  admin: admin })
   const createdUser = result.records.map((record) => record.get('u').properties)
   res.json(createdUser[0])
 })
@@ -129,7 +131,26 @@ router.post('/config-address', async (req, res) => {
   res.json(createdAddress[0])
 })
 
+//Borrar un usuario
+router.post('/delete/:id', async (req, res) => {
+  const nodeId = req.params.id;
 
+  try {
+    const result = await session.run(`MATCH (n:User {userId: ${nodeId}})-[r]-() DETACH DELETE n, r`);
+    console.log(`MATCH (n:User {userId: ${nodeId}})-[r]-() DETACH DELETE n, r`)
+    console.log(result.summary.counters)
+
+    const query = `MATCH (n:User {userId: ${nodeId}}) DELETE n`;
+    console.log(query)
+    const result2 = await session.run(query);
+
+    console.log(result2.summary.counters)
+    res.status(200).json({ message: `Nodo con ID ${nodeId} eliminado` });
+  } catch (error) {
+    console.log("error", error)
+    res.status(500).json({ error: 'Error al eliminar el nodo' });
+  }
+})
 
 
 module.exports = router
