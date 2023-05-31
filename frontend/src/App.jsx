@@ -10,6 +10,7 @@ import MyShippings from './routes/MyShippings'
 import CreateBuilding from './routes/CreateBuilding'
 import AddVehicle from './routes/addVehicle'
 import VehicleOwns from './routes/vehicleOwnship'
+import DeleteRelationProps from './routes/DeleteRelationProperties'
 
 const App = () => (
   <Routes>
@@ -18,6 +19,7 @@ const App = () => (
     <Route path="/register" element={<Register />} />
     <Route path="/landing" element={<Landing />} />
     <Route path="/landing/createbuilding" element={<CreateBuilding />} />
+    <Route path="/landing/deleteProps" element={<DeleteRelationProps />} />
     <Route path="/landing/addVehicle" element={<AddVehicle />} />
     <Route path="/landing/vehicleOwns" element={<VehicleOwns />} />
     <Route path="/profile" element={<Profile />} />
