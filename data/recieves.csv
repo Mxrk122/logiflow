@@ -1,0 +1,14 @@
+userId,shippingId,deliveryDate,isSigned,receivedBy
+3,11.0,Wed May 31 2023,true,Mario Barrientos
+3,9,"2023-05-31",true,Mario Barrientos
+3,12.0,Wed May 31 2023,true,Mario Barrientos
+1,4,"2023-03-02",true,Yong Park
+1,10,"2023-05-31",true,Yong Park
+0,1,"2023-02-20",true,Santiago Taracena
+0,6.0,"2023-05-31",true,Santiago Taracena
+0,0,"2023-02-18",true,Santiago Taracena
+0,8.0,Wed May 31 2023,true,Santiago Taracena
+4.0,13.0,Wed May 31 2023,true,Marco Orozco
+4.0,15.0,Wed May 31 2023,true,Marco Orozco
+4.0,16.0,Wed May 31 2023,true,Christian Orozco
+4.0,14.0,Wed May 31 2023,true,Christian Orozco
