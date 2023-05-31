@@ -115,5 +115,24 @@ router.post('/addVehicle', async (req, res) => {
   }
 });
 
+router.post('/create', async (req, res) => {
+  const response = await session.run('MATCH (u: Building) RETURN MAX(toInteger(u.branchId)) as maxId')
+  const record = response.records[0]
+  const maxId = parseInt(record.get('maxId').toNumber() + 1, 10)
+  const name = req.body.name
+  const type = req.body.type
+  const owns = req.body.ownsBuilding
+
+  const result = await session.run(`
+    CREATE (u: Branch:Building {
+      branchId: $maxId,
+      name: $name,
+      type: $type,
+      ownsBuilding: $owns
+    }) RETURN u
+  `, { name: name, type: type, owns: owns, maxId: maxId})
+  const createdUser = result.records.map((record) => record.get('u').properties)
+  res.json(createdUser[0])
+})
 
 module.exports = router

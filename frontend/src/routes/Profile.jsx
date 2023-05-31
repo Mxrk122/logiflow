@@ -45,6 +45,8 @@ const Profile = () => {
         ) : (
           <Link to="/address-config">Configura tu dirección aquí</Link>
         )}
+        <Link to="/account-update">Actualiza tus datos aquí</Link>
+        <Link to="/address-update">Actualiza tu dirección aquí</Link>
         <Link to="/my-shippings">Mira tus pedidos aquí</Link>
         <p> </p>
         <Button text="Eliminar mi perfil" onClick={handleDelete}/>

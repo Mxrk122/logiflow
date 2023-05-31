@@ -59,9 +59,8 @@ router.get('/:id/my-shippings', async (req, res) => {
 
   const shippings = result.records.map((record) => {
     const shipping = record.get('s').properties
-    const assetVehicle = record.get('assetVehicle') ? record.get('assetVehicle').properties : null;
-    const branchBuilding = record.get('branchBuilding') ? record.get('branchBuilding').properties : null;
-    // const orders = record.get('orders') ? parseOrders(record.get('orders').properties) : null;
+    const assetVehicle = record.get('assetVehicle') ? record.get('assetVehicle').properties : null
+    const branchBuilding = record.get('branchBuilding') ? record.get('branchBuilding').properties : null
 
     return {
       shipping,
@@ -71,7 +70,7 @@ router.get('/:id/my-shippings', async (req, res) => {
     }
   })
 
-  res.json(shippings);
+  res.json(shippings)
 })
 
 router.get('/:username/:password', async (req, res) => {
@@ -90,7 +89,7 @@ router.get('/:username/:password', async (req, res) => {
 router.post('/create', async (req, res) => {
   const response = await session.run('MATCH (u: User) RETURN MAX(toInteger(u.userId)) as maxId')
   const record = response.records[0]
-  const maxId = parseInt(record.get('maxId').toNumber() + 1)
+  const maxId = parseInt(record.get('maxId').toNumber() + 1, 10)
 
   const username = req.body.username
   const password = req.body.password
@@ -117,7 +116,7 @@ router.post('/create', async (req, res) => {
 })
 
 router.post('/config-address', async (req, res) => {
-  const userId = req.body.userId
+  const userId = parseInt(req.body.userId, 10)
   const address = req.body.location
   const exactAddress = req.body.address
   const since = req.body.since
@@ -152,5 +151,33 @@ router.post('/delete/:id', async (req, res) => {
   }
 })
 
+router.patch('/:id', async (req, res) => {
+  const userId = parseInt(req.params.id, 10)
+  const username = req.body.username
+  const phone = req.body.phone
+
+  const result = await session.run(`
+    MATCH (u: User {userId: $userId})
+    SET u.username = $username, u.phone = $phone
+    RETURN u
+  `, { userId, username, phone })
+  const updatedUser = result.records.map((record) => record.get('u').properties)
+  res.json(updatedUser[0])
+})
+
+router.patch('/:id/lives-in', async (req, res) => {
+  const userId = parseInt(req.params.id, 10)
+  const exactAddress = req.body.address
+  const since = req.body.since
+
+  const result = await session.run(`
+    MATCH (u: User) - [l:LIVES_IN] -> (loc: Location)
+    WHERE u.userId = $userId
+    SET l.exactAddress = $exactAddress, l.since = $since
+    RETURN l
+  `, { userId, exactAddress, since })
+  const updatedAddress = result.records.map((record) => record.get('l').properties)
+  res.json(updatedAddress[0])
+})
 
 module.exports = router
