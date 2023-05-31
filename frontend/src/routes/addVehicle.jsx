@@ -45,7 +45,7 @@ const AddVehicle = () => {
     const fetchBuildings = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/branches`
+          `${import.meta.env.VITE_API_URL}/branches/`
         );
         console.log(response.data);
         setBuildings(response.data);

@@ -11,6 +11,7 @@ const Landing = () => {
       <Link to="/profile">Profile Here</Link>
       {user.admin ? <Link to="/landing/createbuilding">create building</Link> : null}
       {user.admin ? <Link to="/landing/addVehicle">add vehicle</Link> : null}
+      {user.admin ? <Link to="/landing/vehicleOwns">Delete Vehicle</Link> : null}
     </>
   )
 }

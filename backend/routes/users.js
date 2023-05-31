@@ -54,21 +54,20 @@ router.get('/:id/my-shippings', async (req, res) => {
     MATCH (u:User {userId: $userId})-[:RECEIVES]->(s:Shipping)
     OPTIONAL MATCH (assetVehicle:Asset:Vehicle)-[:DELIVERS]->(s)
     OPTIONAL MATCH (branchBuilding:Branch:Building)-[:OWNS]->(assetVehicle)
-    OPTIONAL MATCH (u)-[:MAKES_AN]->(orders:Order)
-    RETURN s, assetVehicle, branchBuilding, orders
+    RETURN s, coalesce(assetVehicle, {}) as assetVehicle, coalesce(branchBuilding, {}) as branchBuilding
   `, { userId: userId })
 
   const shippings = result.records.map((record) => {
     const shipping = record.get('s').properties
     const assetVehicle = record.get('assetVehicle') ? record.get('assetVehicle').properties : null;
     const branchBuilding = record.get('branchBuilding') ? record.get('branchBuilding').properties : null;
-    const orders = record.get('orders') ? parseOrders(record.get('orders').properties) : null;
+    // const orders = record.get('orders') ? parseOrders(record.get('orders').properties) : null;
 
     return {
       shipping,
       assetVehicle,
       branchBuilding,
-      orders
+      // orders
     }
   })
 
