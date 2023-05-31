@@ -13,6 +13,7 @@ import MyShippings from './routes/MyShippings'
 import CreateBuilding from './routes/CreateBuilding'
 import AddVehicle from './routes/addVehicle'
 import VehicleOwns from './routes/vehicleOwnship'
+import './scss/Styles.scss'
 
 const App = () => (
   <Routes>

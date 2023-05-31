@@ -4,6 +4,7 @@ import axios from 'axios'
 import Button from '../components/Button'
 import { UserContext } from '../providers/UserProvider'
 import "../scss/Login.scss"
+import "../scss/Styles.scss"
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -25,20 +26,20 @@ const Login = () => {
   }
 
   return (
-    <div className="login-container">
-      <h1>Login</h1>
-      <input
-        type="text"
-        placeholder="Username"
-        onChange={(event) => setUsername(event.target.value)}
-      /> 
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(event) => setPassword(event.target.value)}
-      />
-      <div className='form-group'>
-        <div className="button-group">
+    <div className='bg'>
+      <div className="login-container">
+        <h1>Login</h1>
+        <input
+          type="text"
+          placeholder="Username"
+          onChange={(event) => setUsername(event.target.value)}
+        /> 
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <div className='form-group'>
           <Button
             text="Ingresar"
             onClick={handleLogin}
