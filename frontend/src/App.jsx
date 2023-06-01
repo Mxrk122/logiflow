@@ -14,6 +14,7 @@ import CreateBuilding from './routes/CreateBuilding'
 import AddVehicle from './routes/addVehicle'
 import VehicleOwns from './routes/vehicleOwnship'
 import DeleteOrderPriority from './routes/DeleteOrderPriority'
+import DeleteRelationProps from './routes/DeleteRelationProperties'
 import './scss/Styles.scss'
 
 const App = () => (
@@ -31,6 +32,7 @@ const App = () => (
     <Route path="/address-update" element={<AddressUpdate />} />
     <Route path="/address-config" element={<AddressConfig />} />
     <Route path="/my-shippings" element={<MyShippings />} />
+    <Route path="/landing/deletePropertie" element={<DeleteRelationProps />} />
     <Route path="/landing/createbuilding" element={<CreateBuilding />} />
   </Routes>
 )
